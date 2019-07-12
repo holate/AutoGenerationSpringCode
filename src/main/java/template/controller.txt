@@ -44,4 +44,11 @@ public class ${other.getTableNameJava()?cap_first}Controller extends ServiceCont
     public SiteResponse search(@RequestBody ${other.getTableNameJava()?cap_first} ${other.getTableNameJava()}) {
         return ${other.getTableNameJava()}Service.search(${other.getTableNameJava()});
     }
+
+    //根据ID查询
+    @RequestMapping("/findById")
+    @ResponseBody
+    public SiteResponse findById(@RequestBody Long id) {
+        return ${other.getTableNameJava()}Service.findById(id);
+    }
 }
