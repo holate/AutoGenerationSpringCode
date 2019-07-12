@@ -3,14 +3,11 @@
 package ${package}.base;
 
 <#list allTableJava as i>
-  import ${package}.service.${i};
+import ${package}.service.${i?cap_first}Service;
 </#list>
 
 import ${package}.pojo.other.SiteResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
-
 import javax.servlet.http.HttpSession;
 
 /**
@@ -23,8 +20,6 @@ public class ServiceContain extends MapperContain {
     </#list>
     @Autowired
     public HttpSession session;
-    @Autowired
-    public ApplicationContext applicationContext;
 
     //返回前端数据
     public SiteResponse returnResponse(Object data, String msg, Boolean state) {
