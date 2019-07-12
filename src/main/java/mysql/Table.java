@@ -7,6 +7,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by li on 2017/12/15.
@@ -17,7 +19,7 @@ public class Table {
     //获取字段名及类型
     public void getTypeAndField(ResultSetMetaData resultSetMetaData) throws SQLException {
         Field field;
-        Other.tableNameJava = conversion(resultSetMetaData.getTableName(1));
+        Other.tableNameJava = lineToHump(resultSetMetaData.getTableName(1));
         Other.tableNameSql = resultSetMetaData.getTableName(1);
         HashMap<Integer, String> allType = new HashMap<Integer, String>() {
             {
@@ -37,21 +39,20 @@ public class Table {
             field = new Field();
             typeId = resultSetMetaData.getColumnType(i);
             field.setType(allType.get(typeId));
-            field.setName(conversion(resultSetMetaData.getColumnName(i)));
+            field.setName(lineToHump(resultSetMetaData.getColumnName(i)));
             field.setNames(resultSetMetaData.getColumnName(i));
             tandf.add(field);
         }
     }
 
     //去掉'_',且后一位大写
-    public String conversion(String fields) {
-        for (int i = 0; i < fields.length(); i++) {
-            if (fields.substring(i, i + 1).equals("_")) {
-                String rep = fields.substring(i + 1, i + 2).toUpperCase() + fields.substring(i + 2, fields.length());
-                fields = fields.substring(0, i);
-                fields += rep;
-            }
+    public static String lineToHump(String str) {
+        Matcher matcher = Pattern.compile("_(\\w)").matcher(str);
+        StringBuffer sb = new StringBuffer();
+        while (matcher.find()) {
+            matcher.appendReplacement(sb, matcher.group(1).toUpperCase());
         }
-        return fields;
+        matcher.appendTail(sb);
+        return sb.toString();
     }
 }

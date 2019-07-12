@@ -1,0 +1,37 @@
+<#assign allTableJava=other.getAllTableJava()>
+<#assign package=other.getPackages()>
+package ${package}.base;
+
+<#list allTableJava as i>
+  import ${package}.service.${i};
+</#list>
+
+import ${package}.pojo.other.SiteResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+
+import javax.servlet.http.HttpSession;
+
+/**
+ * Created on ${other.getTime()}.
+ */
+public class ServiceContain extends MapperContain {
+    <#list allTableJava as i>
+    @Autowired
+    public ${i?cap_first}Service ${i}Service;
+    </#list>
+    @Autowired
+    public HttpSession session;
+    @Autowired
+    public ApplicationContext applicationContext;
+
+    //返回前端数据
+    public SiteResponse returnResponse(Object data, String msg, Boolean state) {
+        SiteResponse siteResponse = new SiteResponse();
+        siteResponse.map.put("data", data);
+        siteResponse.setMsg(msg);
+        siteResponse.setState(state);
+        return siteResponse;
+    }
+}
