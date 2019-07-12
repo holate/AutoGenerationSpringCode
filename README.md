@@ -1,0 +1,13 @@
+# AutoGenerationSpringCode
+自动生成spring项目基础代码
+项目fork自1054624458的site子项目
+将可视化界面去掉，改为配置文件形式
+已完成：
+自动生成controller
+自动生成mapper
+自动生成mappxml
+自动生成pojo
+自动生成service
+未完成：
+自动生成base类
+自动生成siteresponse类
