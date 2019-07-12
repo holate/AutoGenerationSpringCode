@@ -3,7 +3,7 @@
 package ${package}.base;
 
 <#list allTableJava as i>
-  import ${package}.mapper.${i};
+import ${package}.mapper.${i?cap_first}Mapper;
 </#list>
 
 import org.apache.ibatis.annotations.Mapper;
@@ -19,4 +19,6 @@ public class MapperContain {
     @Autowired
     public ${i?cap_first}Mapper ${i}Mapper;
 </#list>
+    @Autowired
+    public ApplicationContext applicationContext;
 }
