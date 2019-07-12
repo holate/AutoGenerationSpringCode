@@ -1,0 +1,47 @@
+package ${other.getPackages()}.controller;
+
+import ${other.getPackages()}.base.ServiceContain;
+import ${other.getPackages()}.pojo.${other.getTableNameJava()?cap_first};
+import ${other.getPackages()}.pojo.other.SiteResponse;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+
+/**
+ * Created on ${other.getTime()}.
+ */
+
+@Controller
+@RequestMapping("/api/${other.getTableNameJava()}")
+public class ${other.getTableNameJava()?cap_first}Controller extends ServiceContain{
+
+    //添加
+    @RequestMapping("/insert")
+    @ResponseBody
+    public SiteResponse insert(@RequestBody ${other.getTableNameJava()?cap_first} ${other.getTableNameJava()}) {
+        return ${other.getTableNameJava()}Service.insert(${other.getTableNameJava()});
+    }
+
+    //删除
+    @RequestMapping("/delete")
+    @ResponseBody
+    public SiteResponse delete(@RequestBody Long[] ids) {
+        return ${other.getTableNameJava()}Service.deleteById(ids);
+    }
+
+    //编辑
+    @RequestMapping("/update")
+    @ResponseBody
+    public SiteResponse update(@RequestBody ${other.getTableNameJava()?cap_first} ${other.getTableNameJava()}) {
+        return ${other.getTableNameJava()}Service.update(${other.getTableNameJava()});
+    }
+
+    //查询
+    @RequestMapping("/search")
+    @ResponseBody
+    public SiteResponse search(@RequestBody ${other.getTableNameJava()?cap_first} ${other.getTableNameJava()}) {
+        return ${other.getTableNameJava()}Service.search(${other.getTableNameJava()});
+    }
+}

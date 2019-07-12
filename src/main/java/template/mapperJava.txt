@@ -1,0 +1,20 @@
+package ${other.getPackages()}.mapper;
+
+import ${other.getPackages()}.pojo.${other.getTableNameJava()?cap_first};
+import org.apache.ibatis.annotations.Param;
+import java.util.List;
+
+/**
+ * Created on ${other.getTime()}.
+ */
+public interface ${other.getTableNameJava()?cap_first}Mapper {
+    void insert(@Param("Pojo") ${other.getTableNameJava()?cap_first} ${other.getTableNameJava()});
+
+    void deleteById(@Param("id") Long id);
+
+    void update(@Param("Pojo") ${other.getTableNameJava()?cap_first} ${other.getTableNameJava()});
+
+    ${other.getTableNameJava()?cap_first} findById(@Param("id") Long id);
+
+    List<${other.getTableNameJava()?cap_first}> search(@Param("Pojo") ${other.getTableNameJava()?cap_first} ${other.getTableNameJava()});
+}
