@@ -9,22 +9,13 @@ import java.util.List;
  * Created by li on 2017/12/18.
  */
 public class Other {
-    public static List allTableSql = new ArrayList();
-    public static List allTableJava = new ArrayList();
+    public static List allTable = new ArrayList();
     //java命名规范需要的名字
     public static String tableNameJava;
     //xml连接数据库需要的名字
     public static String tableNameSql;
     public static String time;
     public static String packages;
-
-    public static List getAllTableJava() {
-        return allTableJava;
-    }
-
-    public static void setAllTableJava(List allTableJava) {
-        Other.allTableJava = allTableJava;
-    }
 
     public static String getTableNameSql() {
         return tableNameSql;
@@ -50,12 +41,12 @@ public class Other {
         Other.time = time;
     }
 
-    public static List getAllTableSql() {
-        return allTableSql;
+    public static List getAllTable() {
+        return allTable;
     }
 
-    public static void setAllTableSql(List allTableSql) {
-        Other.allTableSql = allTableSql;
+    public static void setAllTable(List allTable) {
+        Other.allTable = allTable;
     }
 
     public static String getTableNameJava() {

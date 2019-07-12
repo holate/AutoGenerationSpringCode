@@ -17,11 +17,6 @@ public class ${other.getTableNameJava()?cap_first}Service extends ServiceContain
         return returnResponse(${other.getTableNameJava()}Mapper.search(${other.getTableNameJava()}), "查询成功", true);
     }
 
-    //根据ID查询
-    public SiteResponse findById(Long id) {
-        return returnResponse(${other.getTableNameJava()}Mapper.findById(id), "查询成功", true);
-    }
-
     //通过ID删除
     public SiteResponse deleteById(Long[] ids) {
         for (Long id : ids) {
