@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${other.getPackages()}.mapper.${other.getTableNameJava()?cap_first}Mapper">
+    <resultMap id="${other.getTableNameJava()}" type="${other.getPackages()}.pojo.${other.getTableNameJava()?cap_first}">
+     <#list tafList as fields>
+        <result property="${fields.name}" column="${fields.names}"/>
+     </#list>
+    </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="Pojo.id">
+        INSERT into ${other.getTableNameSql()}
+        <include refid="update"/>
+    </insert>
+
+    <delete id="deleteById">
+        DELETE FROM ${other.getTableNameSql()} where id=${'#{'}id${'}'}
+    </delete>
+
+    <update id="update">
+        UPDATE ${other.getTableNameSql()}
+        <include refid="update"/>
+        WHERE id=${'#{'}Pojo.id${'}'}
+    </update>
+
+    <select id="findById" resultMap="${other.getTableNameJava()}">
+        SELECT * FROM ${other.getTableNameSql()} WHERE id=${'#{'}id${'}'}
+    </select>
+
+    <select id="search" resultMap="${other.getTableNameJava()}">
+        SELECT * FROM ${other.getTableNameSql()}
+        <include refid="select"/>
+    </select>
+
+    <sql id="update">
+        <set>
+        <#list tafList as fields>
+            <if test="Pojo.${fields.name}!=null">`${fields.names}`=${'#{'}Pojo.${fields.name}${'}'},</if>
+        </#list>
+        </set>
+    </sql>
+
+    <sql id="select">
+        <where>
+        <#list tafList as fields>
+            <if test="Pojo.${fields.name}!=null">AND `${fields.names}`<#if fields.name?index_of("Id")!=-1>=<#else>LIKE </#if>${'#{'}Pojo.${fields.name}${'}'}</if>
+        </#list>
+        </where>
+    </sql>
+</mapper>

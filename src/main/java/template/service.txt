@@ -1,0 +1,39 @@
+package ${other.getPackages()}.service;
+
+import ${other.getPackages()}.base.ServiceContain;
+import ${other.getPackages()}.pojo.${other.getTableNameJava()?cap_first};
+import ${other.getPackages()}.pojo.other.SiteResponse;
+import org.springframework.stereotype.Service;
+
+
+/**
+ * Created on ${other.getTime()}.
+ */
+@Service
+public class ${other.getTableNameJava()?cap_first}Service extends ServiceContain  {
+
+    //查询
+    public SiteResponse search(${other.getTableNameJava()?cap_first} ${other.getTableNameJava()}) {
+        return returnResponse(${other.getTableNameJava()}Mapper.search(${other.getTableNameJava()}), "查询成功", true);
+    }
+
+    //通过ID删除
+    public SiteResponse deleteById(Long[] ids) {
+        for (Long id : ids) {
+            ${other.getTableNameJava()}Mapper.deleteById(id);
+        }
+        return returnResponse(null, "删除成功", true);
+    }
+
+    //修改
+    public SiteResponse update(${other.getTableNameJava()?cap_first} ${other.getTableNameJava()}) {
+        ${other.getTableNameJava()}Mapper.update(${other.getTableNameJava()});
+        return returnResponse(null, "修改成功", true);
+    }
+
+    //添加
+    public SiteResponse insert(${other.getTableNameJava()?cap_first} ${other.getTableNameJava()}) {
+        ${other.getTableNameJava()}Mapper.insert(${other.getTableNameJava()});
+        return returnResponse(null, "添加成功", true);
+    }
+}
