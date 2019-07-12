@@ -1,0 +1,19 @@
+package ${other.getPackages()}.pojo;
+
+/**
+ * Created on ${other.getTime()}.
+ */
+public class ${other.getTableNameJava()?cap_first} {
+<#list tafList as fields>
+    public ${fields.type} ${fields.name};
+</#list>
+<#list tafList as fields>
+    public ${fields.type} get${fields.name?cap_first}() {
+        return ${fields.name};
+    }
+
+    public void set${fields.name?cap_first}(${fields.type} ${fields.name}) {
+        this.${fields.name} = ${fields.name};
+    }
+</#list>
+}
