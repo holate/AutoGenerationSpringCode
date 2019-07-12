@@ -1,0 +1,22 @@
+<#assign allTableJava=other.getAllTableJava()>
+<#assign package=other.getPackages()>
+package ${package}.base;
+
+<#list allTableJava as i>
+  import ${package}.mapper.${i};
+</#list>
+
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+
+/**
+ * Created on ${other.getTime()}.
+ */
+@Mapper
+public class MapperContain {
+<#list allTableJava as i>
+    @Autowired
+    public ${i?cap_first}Mapper ${i}Mapper;
+</#list>
+}
