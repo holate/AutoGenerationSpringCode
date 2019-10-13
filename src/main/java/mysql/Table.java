@@ -26,9 +26,11 @@ public class Table {
                 put(-1, "String");
                 put(-5, "BigInteger");
                 put(-6, "Long");
-                put(7, "Float");
                 put(-7, "boolean");
+                put(3, "BigDecimal");
                 put(4, "Long");
+                put(7, "Float");
+                put(8, "Double");
                 put(12, "String");
                 put(91, "Date");
                 put(93, "Date");
