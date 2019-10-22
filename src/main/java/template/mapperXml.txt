@@ -42,7 +42,7 @@
     <sql id="select">
         <where>
         <#list tafList as fields>
-            <if test="Pojo.${fields.name}!=null">AND `${fields.names}`<#if fields.name?index_of("Id")!=-1>=<#else>LIKE "%"</#if>${'#{'}Pojo.${fields.name}${'}'}"%"</if>
+            <if test="Pojo.${fields.name}!=null">AND `${fields.names}`<#if fields.name?index_of("Id")!=-1>=<#else>LIKE "%"</#if>${'#{'}Pojo.${fields.name}${'}'}<#if fields.name?index_of("Id")==-1>"%"</#if></if>
         </#list>
         </where>
     </sql>
