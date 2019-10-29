@@ -31,6 +31,11 @@
         <include refid="select"/>
     </select>
 
+    <select id="getExampleCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM ${other.getTableNameSql()}
+        <include refid="select"/>
+    </select>
+
     <sql id="update">
         <set>
         <#list tafList as fields>
