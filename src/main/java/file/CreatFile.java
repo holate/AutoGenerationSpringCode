@@ -12,7 +12,9 @@ import java.io.*;
 import java.util.HashMap;
 
 /**
- * Created by li on 2017/12/15.
+ *
+ * @author li
+ * @date 2017/12/15
  */
 public class CreatFile {
     //模板生成文件
@@ -22,16 +24,21 @@ public class CreatFile {
         //字段列表
         map.put("tafList", Table.tandf);
         map.put("other", new Other());
-        if (Path.pojoPath != null)
+        if (Path.pojoPath != null) {
             createPojo(configuration, map);
-        if (Path.mapperXmlPath != null)
+        }
+        if (Path.mapperXmlPath != null) {
             createXmlMapper(configuration, map);
-        if (Path.mapperJavaPath != null)
+        }
+        if (Path.mapperJavaPath != null) {
             createJavaMapper(configuration, map);
-        if (Path.controllerPath != null)
+        }
+        if (Path.controllerPath != null) {
             createController(configuration, map);
-        if (Path.servicePath != null)
+        }
+        if (Path.servicePath != null) {
             createService(configuration, map);
+        }
     }
 
     public Configuration getConfiguration() throws IOException {
