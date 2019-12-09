@@ -23,14 +23,20 @@ public class Table {
         Other.tableNameSql = resultSetMetaData.getTableName(1);
         HashMap<Integer, String> allType = new HashMap<Integer, String>() {
             {
-                put(-1, "String");
-                put(-5, "BigInteger");
-                put(-6, "Long");
-                put(7, "Float");
                 put(-7, "boolean");
+                put(-6, "Long");
+                put(-5, "BigInteger");
+                put(-4, "byte[]");
+                put(-1, "String");
+                put(1, "String");
+                put(3, "BigDecimal");
                 put(4, "Long");
+                put(5, "Long");
+                put(7, "Float");
+                put(8, "Double");
                 put(12, "String");
                 put(91, "Date");
+                put(92, "Date");
                 put(93, "Date");
             }
         };
