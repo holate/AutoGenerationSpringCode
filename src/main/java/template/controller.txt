@@ -1,54 +1,66 @@
 package ${other.getPackages()}.controller;
 
-import ${other.getPackages()}.base.ServiceContain;
 import ${other.getPackages()}.pojo.${other.getTableNameJava()?cap_first};
-import ${other.getPackages()}.pojo.other.SiteResponse;
-import org.springframework.stereotype.Controller;
+import ${other.getPackages()}.service. ${other.getTableNameJava()?cap_first}Service;
+import ${other.getPackages()}.common.ResponseTemplate;
+import ${other.getPackages()}.common.PageQueryBean;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created on ${other.getTime()}.
  */
 
-@Controller
+@RestController
 @RequestMapping("/api/${other.getTableNameJava()}")
-public class ${other.getTableNameJava()?cap_first}Controller extends ServiceContain{
+public class ${other.getTableNameJava()?cap_first}Controller{
 
-    //添加
+    @Autowired
+    public ${other.getTableNameJava()?cap_first}Service ${other.getTableNameJava()}Service;
+
+    /**
+     * 添加
+     */
     @RequestMapping("/insert")
-    @ResponseBody
-    public SiteResponse insert(@RequestBody ${other.getTableNameJava()?cap_first} ${other.getTableNameJava()}) {
-        return ${other.getTableNameJava()}Service.insert(${other.getTableNameJava()});
+    public ResponseTemplate insert(@RequestBody ${other.getTableNameJava()?cap_first} ${other.getTableNameJava()}) {
+        ${other.getTableNameJava()}Service.insert(${other.getTableNameJava()});
+        return ResponseTemplate.success();
     }
 
-    //删除
+    /**
+     * 删除
+     */
     @RequestMapping("/delete")
-    @ResponseBody
-    public SiteResponse delete(@RequestBody Long[] ids) {
-        return ${other.getTableNameJava()}Service.deleteById(ids);
+    public ResponseTemplate delete(@RequestBody Long[] ids) {
+        ${other.getTableNameJava()}Service.deleteById(ids);
+        return ResponseTemplate.success();
     }
 
-    //编辑
+    /**
+     * 编辑
+     */
     @RequestMapping("/update")
-    @ResponseBody
-    public SiteResponse update(@RequestBody ${other.getTableNameJava()?cap_first} ${other.getTableNameJava()}) {
-        return ${other.getTableNameJava()}Service.update(${other.getTableNameJava()});
+    public ResponseTemplate update(@RequestBody ${other.getTableNameJava()?cap_first} ${other.getTableNameJava()}) {
+        ${other.getTableNameJava()}Service.update(${other.getTableNameJava()});
+        return ResponseTemplate.success();
     }
 
-    //查询
+    /**
+     * 查询
+     */
     @RequestMapping("/search")
-    @ResponseBody
-    public SiteResponse search(@RequestBody ${other.getTableNameJava()?cap_first} ${other.getTableNameJava()}) {
-        return ${other.getTableNameJava()}Service.search(${other.getTableNameJava()});
+    public ResponseTemplate<PageQueryBean<${other.getTableNameJava()?cap_first}>> search(@RequestBody ${other.getTableNameJava()?cap_first} ${other.getTableNameJava()}) {
+        return ResponseTemplate.ok(${other.getTableNameJava()}Service.search(${other.getTableNameJava()}));
     }
 
-    //根据ID查询
+    /**
+     * 根据ID查询
+     */
     @RequestMapping("/findById")
-    @ResponseBody
-    public SiteResponse findById(@RequestBody Long id) {
-        return ${other.getTableNameJava()}Service.findById(id);
+    public ResponseTemplate findById(@RequestBody Long id) {
+        return ResponseTemplate.success(${other.getTableNameJava()}Service.findById(id));
     }
 }

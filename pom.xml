@@ -8,6 +8,11 @@
     <artifactId>codes</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <mysql8>8.0.16</mysql8>
+        <mysql5>5.1.48</mysql5>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.freemarker</groupId>
@@ -17,7 +22,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.16</version>
+            <version>${mysql8}</version>
         </dependency>
     </dependencies>
 </project>

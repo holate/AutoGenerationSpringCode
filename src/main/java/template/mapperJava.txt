@@ -8,6 +8,7 @@ import java.util.List;
  * Created on ${other.getTime()}.
  */
 public interface ${other.getTableNameJava()?cap_first}Mapper {
+
     void insert(@Param("Pojo") ${other.getTableNameJava()?cap_first} ${other.getTableNameJava()});
 
     void deleteById(@Param("id") Long id);

@@ -1,19 +1,22 @@
 package ${other.getPackages()}.pojo;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Date;
 /**
  * Created on ${other.getTime()}.
  */
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ${other.getTableNameJava()?cap_first} {
+
 <#list tafList as fields>
     public ${fields.type} ${fields.name};
-</#list>
-<#list tafList as fields>
-    public ${fields.type} get${fields.name?cap_first}() {
-        return ${fields.name};
-    }
 
-    public void set${fields.name?cap_first}(${fields.type} ${fields.name}) {
-        this.${fields.name} = ${fields.name};
-    }
 </#list>
 }
