@@ -2,7 +2,7 @@ package ${other.getPackages()}.controller;
 
 import ${other.getPackages()}.pojo.${other.getTableNameJava()?cap_first};
 import ${other.getPackages()}.service. ${other.getTableNameJava()?cap_first}Service;
-import ${other.getPackages()}.common.ResponseTemplate;
+import ${other.getPackages()}.common.ApiResult;
 import ${other.getPackages()}.common.PageQueryBean;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,42 +25,42 @@ public class ${other.getTableNameJava()?cap_first}Controller{
      * 添加
      */
     @RequestMapping("/insert")
-    public ResponseTemplate insert(@RequestBody ${other.getTableNameJava()?cap_first} ${other.getTableNameJava()}) {
+    public ApiResult insert(@RequestBody ${other.getTableNameJava()?cap_first} ${other.getTableNameJava()}) {
         ${other.getTableNameJava()}Service.insert(${other.getTableNameJava()});
-        return ResponseTemplate.success();
+        return ApiResult.success();
     }
 
     /**
      * 删除
      */
     @RequestMapping("/delete")
-    public ResponseTemplate delete(@RequestBody Long[] ids) {
+    public ApiResult delete(@RequestBody Long[] ids) {
         ${other.getTableNameJava()}Service.deleteById(ids);
-        return ResponseTemplate.success();
+        return ApiResult.success();
     }
 
     /**
      * 编辑
      */
     @RequestMapping("/update")
-    public ResponseTemplate update(@RequestBody ${other.getTableNameJava()?cap_first} ${other.getTableNameJava()}) {
+    public ApiResult update(@RequestBody ${other.getTableNameJava()?cap_first} ${other.getTableNameJava()}) {
         ${other.getTableNameJava()}Service.update(${other.getTableNameJava()});
-        return ResponseTemplate.success();
+        return ApiResult.success();
     }
 
     /**
      * 查询
      */
     @RequestMapping("/search")
-    public ResponseTemplate<PageQueryBean<${other.getTableNameJava()?cap_first}>> search(@RequestBody ${other.getTableNameJava()?cap_first} ${other.getTableNameJava()}) {
-        return ResponseTemplate.ok(${other.getTableNameJava()}Service.search(${other.getTableNameJava()}));
+    public ApiResult<PageQueryBean<${other.getTableNameJava()?cap_first}>> search(@RequestBody ${other.getTableNameJava()?cap_first} ${other.getTableNameJava()}) {
+        return ApiResult.success(${other.getTableNameJava()}Service.search(${other.getTableNameJava()}));
     }
 
     /**
      * 根据ID查询
      */
     @RequestMapping("/findById")
-    public ResponseTemplate findById(@RequestBody Long id) {
-        return ResponseTemplate.success(${other.getTableNameJava()}Service.findById(id));
+    public ApiResult findById(@RequestBody Long id) {
+        return ApiResult.success(${other.getTableNameJava()}Service.findById(id));
     }
 }

@@ -24,7 +24,7 @@ public class ${other.getTableNameJava()?cap_first}Service{
     public PageQueryBean<${other.getTableNameJava()?cap_first}> search(${other.getTableNameJava()?cap_first} ${other.getTableNameJava()}) {
         PageQueryBean<${other.getTableNameJava()?cap_first}> page = new PageQueryBean();
         page.setItems(${other.getTableNameJava()}Mapper.search(${other.getTableNameJava()}));
-        return ResponseTemplate.ok(page);
+        return page;
     }
 
     /**
