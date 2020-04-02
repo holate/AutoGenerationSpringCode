@@ -21,12 +21,12 @@ public class Table {
         Field field;
         Other.tableNameJava = lineToHump(resultSetMetaData.getTableName(1));
         Other.tableNameSql = resultSetMetaData.getTableName(1);
-        HashMap<Integer, String> allType = new HashMap<Integer, String>() {
+        HashMap<Integer, String> allType = new HashMap<Integer, String>(16) {
             {
-                put(-7, "boolean");
-                put(-6, "Long");
+                put(-7, "Boolean");
+                put(-6, "Short");
                 put(-5, "Integer");
-                put(-4, "byte[]");
+                put(-4, "Byte[]");
                 put(-1, "String");
                 put(1, "String");
                 put(3, "Decimal");

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/${other.getTableNameJava()}")
-public class ${other.getTableNameJava()?cap_first}Controller{
+public class ${other.getTableNameJava()?cap_first}Controller {
 
     @Autowired
     public ${other.getTableNameJava()?cap_first}Service ${other.getTableNameJava()}Service;
@@ -25,12 +25,8 @@ public class ${other.getTableNameJava()?cap_first}Controller{
      * 添加
      */
     @RequestMapping("/createOrUpdate")
-    public ApiResult insert(@RequestBody ${other.getTableNameJava()?cap_first} ${other.getTableNameJava()}) {
-        if(${other.getTableNameJava()}.getId()!=null){
-            ${other.getTableNameJava()}Service.insert(${other.getTableNameJava()});
-        } else {
-            ${other.getTableNameJava()}Service.update(${other.getTableNameJava()});
-        }
+    public ApiResult createOrUpdate(@RequestBody ${other.getTableNameJava()?cap_first} ${other.getTableNameJava()}) {
+        ${other.getTableNameJava()}Service.createOrUpdate(${other.getTableNameJava()});
         return ApiResult.success();
     }
 

@@ -42,16 +42,13 @@ public class ${other.getTableNameJava()?cap_first}Service{
     }
 
     /**
-     * 修改
-     */
-    public void update(${other.getTableNameJava()?cap_first} ${other.getTableNameJava()}) {
-        ${other.getTableNameJava()}Mapper.update(${other.getTableNameJava()});
-    }
-
-    /**
      * 添加
      */
-    public void insert(${other.getTableNameJava()?cap_first} ${other.getTableNameJava()}) {
-        ${other.getTableNameJava()}Mapper.insert(${other.getTableNameJava()});
+    public void createOrUpdate(${other.getTableNameJava()?cap_first} ${other.getTableNameJava()}) {
+        if (${other.getTableNameJava()}.getId() == null) {
+            ${other.getTableNameJava()}Mapper.insert(${other.getTableNameJava()});
+        } else {
+            ${other.getTableNameJava()}Mapper.update(${other.getTableNameJava()});
+        }
     }
 }

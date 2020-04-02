@@ -16,7 +16,7 @@ import java.util.Date;
 public class ${other.getTableNameJava()?cap_first} {
 
 <#list tafList as fields>
-    public ${fields.type} ${fields.name};
+    private ${fields.type} ${fields.name};
 
 </#list>
 }

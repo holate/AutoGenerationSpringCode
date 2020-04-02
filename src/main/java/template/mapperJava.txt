@@ -2,6 +2,7 @@ package ${other.getPackages()}.mapper;
 
 import ${other.getPackages()}.pojo.${other.getTableNameJava()?cap_first};
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
