@@ -12,8 +12,11 @@
         <include refid="update"/>
     </insert>
 
-    <delete id="deleteById">
-        DELETE FROM ${other.getTableNameSql()} where id=${'#{'}id${'}'}
+    <delete id="deleteByIds">
+        DELETE FROM ${other.getTableNameSql()} where id in
+        <foreach collection="ids" open="(" close=")" item="item" separator=",">
+          ${'#{'}item${'}'}
+        </foreach>
     </delete>
 
     <update id="update">

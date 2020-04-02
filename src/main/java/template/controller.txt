@@ -24,9 +24,13 @@ public class ${other.getTableNameJava()?cap_first}Controller{
     /**
      * 添加
      */
-    @RequestMapping("/insert")
+    @RequestMapping("/createOrUpdate")
     public ApiResult insert(@RequestBody ${other.getTableNameJava()?cap_first} ${other.getTableNameJava()}) {
-        ${other.getTableNameJava()}Service.insert(${other.getTableNameJava()});
+        if(${other.getTableNameJava()}.getId()!=null){
+            ${other.getTableNameJava()}Service.insert(${other.getTableNameJava()});
+        } else {
+            ${other.getTableNameJava()}Service.update(${other.getTableNameJava()});
+        }
         return ApiResult.success();
     }
 
@@ -35,16 +39,7 @@ public class ${other.getTableNameJava()?cap_first}Controller{
      */
     @RequestMapping("/delete")
     public ApiResult delete(@RequestBody Long[] ids) {
-        ${other.getTableNameJava()}Service.deleteById(ids);
-        return ApiResult.success();
-    }
-
-    /**
-     * 编辑
-     */
-    @RequestMapping("/update")
-    public ApiResult update(@RequestBody ${other.getTableNameJava()?cap_first} ${other.getTableNameJava()}) {
-        ${other.getTableNameJava()}Service.update(${other.getTableNameJava()});
+        ${other.getTableNameJava()}Service.deleteByIds(ids);
         return ApiResult.success();
     }
 

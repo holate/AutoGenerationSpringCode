@@ -47,12 +47,12 @@ public class Controller {
                 Table.tandf = new ArrayList<>();
             }
             CreatFile creatFile = new CreatFile();
-            HashMap<String, Object> map = new HashMap<>();
-            map.put("other", new Other());
-            creatFile.createPojoSiteResponse(creatFile.getConfiguration(), map);
-            creatFile.createServiceContain(creatFile.getConfiguration(), map);
-            creatFile.createMapperContain(creatFile.getConfiguration(), map);
             con.close();
+//            HashMap<String, Object> map = new HashMap<>();
+//            map.put("other", new Other());
+//            creatFile.createPojoSiteResponse(creatFile.getConfiguration(), map);
+//            creatFile.createServiceContain(creatFile.getConfiguration(), map);
+//            creatFile.createMapperContain(creatFile.getConfiguration(), map);
         }
     }
 
@@ -63,7 +63,7 @@ public class Controller {
         paths[1] = path + "\\pojo";
         paths[2] = path + "\\pojo\\other";
         paths[3] = path + "\\mapper";
-        paths[4] = path + "\\mapper\\xml";
+        paths[4] = path + "\\mapper";
         paths[5] = path + "\\service";
         paths[6] = path + "\\controller";
         paths[7] = path + "\\base";
