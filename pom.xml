@@ -10,7 +10,7 @@
 
     <properties>
         <mysql8>8.0.16</mysql8>
-        <mysql5>5.1.48</mysql5>
+        <mysql5>8.0.16</mysql5>
     </properties>
 
     <dependencies>
