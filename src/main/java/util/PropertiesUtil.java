@@ -6,14 +6,15 @@ import java.util.Properties;
 
 /**
  * 读取配置文件工具类
+ *
  * @author hola
  */
 public class PropertiesUtil {
     private Properties prop;
-    private String filepath;
+    private String filePath;
 
-    public PropertiesUtil(String filepath1) {
-        this.filepath = filepath1;
+    public PropertiesUtil(String filePath) {
+        this.filePath = filePath;
         try {
             this.prop = readProperties();
         } catch (IOException e) {
@@ -23,7 +24,7 @@ public class PropertiesUtil {
 
     private Properties readProperties() throws IOException {
         Properties proper = new Properties();
-        try (FileInputStream fileStream = new FileInputStream(filepath);
+        try (FileInputStream fileStream = new FileInputStream(filePath);
              BufferedInputStream in = new BufferedInputStream(fileStream)) {
             proper.load(new InputStreamReader(in, StandardCharsets.UTF_8));
         }

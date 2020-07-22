@@ -1,4 +1,4 @@
-package ${other.getPackages()}.pojo;
+package ${other.getPackages()}.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,8 +15,8 @@ import java.util.Date;
 @AllArgsConstructor
 public class ${other.getTableNameJava()?cap_first} {
 
-<#list tafList as fields>
-    private ${fields.type} ${fields.name};
+<#list fieldList as fields>
+    private ${fields.type} ${fields.javaName};
 
 </#list>
 }

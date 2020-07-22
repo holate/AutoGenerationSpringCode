@@ -6,56 +6,45 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by li on 2017/12/18.
+ * 存放公共信息
+ *
+ * @author holate
+ * @date 2020年7月21日
  */
 public class Other {
-    public static List allTableSql = new ArrayList();
-    public static List allTableJava = new ArrayList();
-    //java命名规范需要的名字
+    public static List<String> allTableSql = new ArrayList<>();
+    public static List<String> allTableJava = new ArrayList<>();
+    /**
+     * 驼峰命名
+     */
     public static String tableNameJava;
-    //xml连接数据库需要的名字
+    /**
+     * 下划线命名
+     */
     public static String tableNameSql;
+    /**
+     * 创建时间
+     */
     public static String time;
+    /**
+     * 包名
+     */
     public static String packages;
 
-    public static List getAllTableJava() {
-        return allTableJava;
-    }
-
-    public static void setAllTableJava(List allTableJava) {
-        Other.allTableJava = allTableJava;
-    }
-
-    public static String getTableNameSql() {
-        return tableNameSql;
-    }
-
-    public static void setTableNameSql(String tableNameSql) {
-        Other.tableNameSql = tableNameSql;
-    }
-
-    public static String getPackages() {
-        return packages;
-    }
-
-    public static void setPackages(String packages) {
-        Other.packages = packages;
-    }
-
-    public static String getTime() {
-        return time;
-    }
-
-    public static void setTime(String time) {
-        Other.time = time;
-    }
-
-    public static List getAllTableSql() {
+    public static List<String> getAllTableSql() {
         return allTableSql;
     }
 
-    public static void setAllTableSql(List allTableSql) {
+    public static void setAllTableSql(List<String> allTableSql) {
         Other.allTableSql = allTableSql;
+    }
+
+    public static List<String> getAllTableJava() {
+        return allTableJava;
+    }
+
+    public static void setAllTableJava(List<String> allTableJava) {
+        Other.allTableJava = allTableJava;
     }
 
     public static String getTableNameJava() {
@@ -66,8 +55,32 @@ public class Other {
         Other.tableNameJava = tableNameJava;
     }
 
+    public static String getTableNameSql() {
+        return tableNameSql;
+    }
+
+    public static void setTableNameSql(String tableNameSql) {
+        Other.tableNameSql = tableNameSql;
+    }
+
+    public static String getTime() {
+        return time;
+    }
+
+    public static void setTime(String time) {
+        Other.time = time;
+    }
+
+    public static String getPackages() {
+        return packages;
+    }
+
+    public static void setPackages(String packages) {
+        Other.packages = packages;
+    }
+
     public Other() {
-        SimpleDateFormat sDF = new SimpleDateFormat("yyyy.MM.dd");
-        time = sDF.format(new Date());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
+        time = format.format(new Date());
     }
 }

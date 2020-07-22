@@ -1,27 +1,37 @@
 package pojo;
 
 /**
- * Created by li on 2017/12/18.
+ * 字段
  */
 public class Field {
-    public String name;
+    /**
+     * 数据类型
+     */
     public String type;
-    public String names;
+    /**
+     * 驼峰名称(经过转换)
+     */
+    public String javaName;
 
-    public String getNames() {
-        return names;
+    /**
+     * 下划线名称(sql中)
+     */
+    public String sqlName;
+
+    public String getSqlName() {
+        return sqlName;
     }
 
-    public void setNames(String names) {
-        this.names = names;
+    public void setSqlName(String sqlName) {
+        this.sqlName = sqlName;
     }
 
-    public String getName() {
-        return name;
+    public String getJavaName() {
+        return javaName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setJavaName(String javaName) {
+        this.javaName = javaName;
     }
 
     public String getType() {

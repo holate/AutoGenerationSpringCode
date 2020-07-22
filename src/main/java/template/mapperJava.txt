@@ -1,7 +1,6 @@
 package ${other.getPackages()}.mapper;
 
-import ${other.getPackages()}.pojo.${other.getTableNameJava()?cap_first};
-import org.apache.ibatis.annotations.Param;
+import ${other.getPackages()}.entity.${other.getTableNameJava()?cap_first};
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
@@ -9,15 +8,37 @@ import java.util.List;
  * Created on ${other.getTime()}.
  */
 @Repository
-public interface ${other.getTableNameJava()?cap_first}Mapper {
+public interface ${other.getTableNameJava()?cap_first}Dao {
 
-    void insert(@Param("Pojo") ${other.getTableNameJava()?cap_first} ${other.getTableNameJava()});
+    /**
+     * 增加
+     *
+     * @param ${other.getTableNameJava()}
+     * @return
+     */
+    Integer insertSelective(${other.getTableNameJava()?cap_first} ${other.getTableNameJava()});
 
-    void deleteByIds(@Param("id") Long[] id);
+    /**
+     * 删除
+     *
+     * @param id
+     * @return
+     */
+    Integer deleteByPrimaryKey(Integer id);
 
-    void update(@Param("Pojo") ${other.getTableNameJava()?cap_first} ${other.getTableNameJava()});
+    /**
+     * 更新
+     *
+     * @param ${other.getTableNameJava()}
+     * @return
+     */
+    Integer updateByPrimaryKeySelective(${other.getTableNameJava()?cap_first} ${other.getTableNameJava()});
 
-    ${other.getTableNameJava()?cap_first} findById(@Param("id") Long id);
-
-    List<${other.getTableNameJava()?cap_first}> search(@Param("Pojo") ${other.getTableNameJava()?cap_first} ${other.getTableNameJava()});
+    /**
+     * 根据id查询
+     *
+     * @param id
+     * @return
+     */
+    ${other.getTableNameJava()?cap_first} selectByPrimaryKey(Integer id);
 }

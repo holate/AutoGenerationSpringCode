@@ -12,19 +12,24 @@ import java.io.*;
 import java.util.HashMap;
 
 /**
- *
- * @author li
- * @date 2017/12/15
+ * @author holate
+ * @date 2020年7月21日
  */
 public class CreatFile {
-    //模板生成文件
-    public void create() throws IOException, TemplateException {
+    /**
+     * 开始创建
+     *
+     * @param table 表数据
+     * @throws IOException
+     * @throws TemplateException
+     */
+    public void create(Table table) throws IOException, TemplateException {
         Configuration configuration = getConfiguration();
-        HashMap<String, Object> map = new HashMap<String, Object>();
+        HashMap<String, Object> map = new HashMap<>(2);
         //字段列表
-        map.put("tafList", Table.tandf);
+        map.put("fieldList", table.getFieldList());
         map.put("other", new Other());
-        if (Path.pojoPath != null) {
+        if (Path.entityPath != null) {
             createPojo(configuration, map);
         }
         if (Path.mapperXmlPath != null) {
@@ -32,12 +37,6 @@ public class CreatFile {
         }
         if (Path.mapperJavaPath != null) {
             createJavaMapper(configuration, map);
-        }
-        if (Path.controllerPath != null) {
-            createController(configuration, map);
-        }
-        if (Path.servicePath != null) {
-            createService(configuration, map);
         }
     }
 
@@ -50,17 +49,10 @@ public class CreatFile {
     }
 
     String tabelNameJava = Other.tableNameJava;
-    //生成pojo.java
+    //生成entity.java
     public void createPojo(Configuration configuration, HashMap<String, Object> map) throws IOException, TemplateException {
-        Template template = configuration.getTemplate("pojo.txt");
-        Writer writer = new OutputStreamWriter(new FileOutputStream(Path.pojoPath + "/" + (tabelNameJava.substring(0, 1).toUpperCase() + tabelNameJava.substring(1)) + ".java"), "UTF-8");
-        template.process(map, writer);
-    }
-
-    //生成pojo/other/SiteResponse.java
-    public void createPojoSiteResponse(Configuration configuration, HashMap<String, Object> map) throws IOException, TemplateException {
-        Template template = configuration.getTemplate("siteResponse.txt");
-        Writer writer = new OutputStreamWriter(new FileOutputStream(Path.pojoOtherPath + "/SiteResponse.java"), "UTF-8");
+        Template template = configuration.getTemplate("entity.txt");
+        Writer writer = new OutputStreamWriter(new FileOutputStream(Path.entityPath + "/" + (tabelNameJava.substring(0, 1).toUpperCase() + tabelNameJava.substring(1)) + ".java"), "UTF-8");
         template.process(map, writer);
     }
 
@@ -75,31 +67,6 @@ public class CreatFile {
     public void createJavaMapper(Configuration configuration, HashMap<String, Object> map) throws IOException, TemplateException {
         Template template = configuration.getTemplate("mapperJava.txt");
         Writer writer = new OutputStreamWriter(new FileOutputStream(Path.mapperJavaPath + "/" + (tabelNameJava.substring(0, 1).toUpperCase() + tabelNameJava.substring(1)) + "Mapper.java"), "UTF-8");
-        template.process(map, writer);
-    }
-
-    //生成controller.java
-    public void createController(Configuration configuration, HashMap<String, Object> map) throws IOException, TemplateException {
-        Template template = configuration.getTemplate("controller.txt");
-        Writer writer = new OutputStreamWriter(new FileOutputStream(Path.controllerPath + "/" + (tabelNameJava.substring(0, 1).toUpperCase() + tabelNameJava.substring(1)) + "Controller.java"), "UTF-8");
-        template.process(map, writer);
-    }
-
-    //生成service.java
-    public void createService(Configuration configuration, HashMap<String, Object> map) throws IOException, TemplateException {
-        Template template = configuration.getTemplate("service.txt");
-        Writer writer = new OutputStreamWriter(new FileOutputStream(Path.servicePath + "/" + (tabelNameJava.substring(0, 1).toUpperCase() + tabelNameJava.substring(1)) + "Service.java"), "UTF-8");
-        template.process(map, writer);
-    }
-
-    public void createServiceContain(Configuration configuration, HashMap<String, Object> map) throws IOException, TemplateException {
-        Template template = configuration.getTemplate("serviceContain.txt");
-        Writer writer = new OutputStreamWriter(new FileOutputStream(Path.basePath + "/ServiceContain.java"), "UTF-8");
-        template.process(map, writer);
-    }
-    public void createMapperContain(Configuration configuration, HashMap<String, Object> map) throws IOException, TemplateException {
-        Template template = configuration.getTemplate("mapperContain.txt");
-        Writer writer = new OutputStreamWriter(new FileOutputStream(Path.basePath + "/MapperContain.java"), "UTF-8");
         template.process(map, writer);
     }
 }

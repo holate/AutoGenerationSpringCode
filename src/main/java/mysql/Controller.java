@@ -9,75 +9,79 @@ import util.PropertiesUtil;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- *
- * @author li
- * @date 2017/12/15
+ * 主要逻辑处理器
  */
 public class Controller {
 
     PropertiesUtil proper = new PropertiesUtil("src/main/resources/mysql-config.properties");
 
-    //程序入口
+    /**
+     * 程序入口
+     *
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     * @throws TemplateException
+     */
     public void write() throws IOException, ClassNotFoundException, SQLException, TemplateException {
+        //设置文件路径
         setPath();
         ResultSet resultSet;
         Table table = new Table();
+        String includeTable = proper.getProperty("tables");
+        List<String> tables = new ArrayList<>(Arrays.asList(includeTable.split(",")));
         Class.forName(proper.getProperty("driver"));
         Connection con = DriverManager.getConnection(proper.getProperty("url"), proper.getProperty("username"), proper.getProperty("password"));
         Statement stmt = con.createStatement();
         //获取所有表名
         if (stmt.execute("show table status")) {
             resultSet = stmt.getResultSet();
+            //获取所有数据表
             while (resultSet.next()) {
                 String name = resultSet.getString(resultSet.findColumn("name"));
                 Other.allTableSql.add(name);
                 Other.allTableJava.add(Table.lineToHump(name));
             }
             Other.packages = proper.getProperty("package");
+            //获取表中所有字段
             for (int i = 0; i < Other.allTableSql.size(); i++) {
-                resultSet = stmt.executeQuery("select * from " + Other.allTableSql.get(i));
-                ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
-                table.getTypeAndField(resultSetMetaData);
-                new CreatFile().create();
-                Table.tandf = new ArrayList<>();
+                if (tables.contains(Other.allTableSql.get(i))) {
+                    resultSet = stmt.executeQuery("select * from " + Other.allTableSql.get(i));
+                    ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+                    table.getTypeAndField(resultSetMetaData);
+                    //创建内容
+                    new CreatFile().create(table);
+                }
             }
-            CreatFile creatFile = new CreatFile();
             con.close();
-//            HashMap<String, Object> map = new HashMap<>();
-//            map.put("other", new Other());
-//            creatFile.createPojoSiteResponse(creatFile.getConfiguration(), map);
-//            creatFile.createServiceContain(creatFile.getConfiguration(), map);
-//            creatFile.createMapperContain(creatFile.getConfiguration(), map);
         }
     }
 
     private void setPath() {
         String path = proper.getProperty("path");
-        String[] paths = new String[8];
+        String[] paths = new String[3];
         paths[0] = path;
-        paths[1] = path + "\\pojo";
-        paths[2] = path + "\\pojo\\other";
-        paths[3] = path + "\\mapper";
-        paths[4] = path + "\\mapper";
-        paths[5] = path + "\\service";
-        paths[6] = path + "\\controller";
-        paths[7] = path + "\\base";
+        paths[1] = path + "\\entity";
+        paths[2] = path + "\\mapper";
         for (String p : paths) {
             if (!new File(p).exists()) {
                 new File(p).mkdir();
             }
         }
-        Path.pojoPath = paths[1];
-        Path.pojoOtherPath = paths[2];
-        Path.mapperJavaPath = paths[3];
-        Path.mapperXmlPath = paths[4];
-        Path.servicePath = paths[5];
-        Path.controllerPath = paths[6];
-        Path.basePath = paths[7];
+        Path.entityPath = paths[1];
+        Path.mapperJavaPath = paths[2];
+        Path.mapperXmlPath = paths[2];
     }
 }
