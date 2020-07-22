@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="${other.getPackages()}.dao.${other.getTableNameJava()?cap_first}Dao">
+<mapper namespace="${packages}.dao.${tableNameJava?cap_first}Dao">
 
     <sql id="Base_Column_List">
     <trim suffixOverrides=",">
@@ -11,7 +11,7 @@
     <sql>
 
     <insert id="insertSelective" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT into ${other.getTableNameSql()}
+        INSERT into ${tableNameSql}
         <trim prefix="(" suffix=")" suffixOverrides=",">
         <#list fieldList as fields>
             <if test="${fields.javaName} != null">`${fields.sqlName}`,</if>
@@ -25,11 +25,11 @@
     </insert>
 
     <delete id="deleteByPrimaryKey">
-        UPDATE ${other.getTableNameSql()} SET status_flag = 0 where id = ${'#{'}id${'}'}
+        UPDATE ${tableNameSql} SET status_flag = 0 where id = ${'#{'}id${'}'}
     </delete>
 
     <update id="updateByPrimaryKeySelective">
-        UPDATE ${other.getTableNameSql()}
+        UPDATE ${tableNameSql}
         <set>
         <#list fieldList as fields>
             <if test="${fields.javaName} != null">`${fields.sqlName}`=${'#{'}${fields.javaName}${'}'},</if>
@@ -38,10 +38,10 @@
         WHERE id = ${'#{'}id${'}'}
     </update>
 
-    <select id="selectByPrimaryKey" resultType="${other.getPackages()}.entity.${other.getTableNameJava()}">
+    <select id="selectByPrimaryKey" resultType="${packages}.entity.${tableNameJava}">
         select
         <include refid="Base_Column_List"/>
-        from ${other.getTableNameSql()}
+        from ${tableNameSql}
         where id = ${'#{'}id${'}'}
     </select>
 

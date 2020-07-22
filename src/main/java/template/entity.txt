@@ -1,21 +1,24 @@
-package ${other.getPackages()}.entity;
+package ${packages}.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 import java.util.Date;
 /**
- * Created on ${other.getTime()}.
+ * Created on ${createTime}.
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ${other.getTableNameJava()?cap_first} {
+public class ${tableNameJava?cap_first} {
 
 <#list fieldList as fields>
+    /**
+     * ${fields.remark}
+     */
     private ${fields.type} ${fields.javaName};
 
 </#list>

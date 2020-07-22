@@ -1,9 +1,8 @@
 package mysql;
 
 
-import file.CreatFile;
+import file.CreateFile;
 import freemarker.template.TemplateException;
-import pojo.Other;
 import pojo.Path;
 import util.PropertiesUtil;
 
@@ -12,28 +11,33 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static mysql.Table.lineToHump;
 
 /**
  * 主要逻辑处理器
+ *
+ * @author holate
  */
 public class Controller {
 
-    PropertiesUtil proper = new PropertiesUtil("src/main/resources/mysql-config.properties");
+    private final PropertiesUtil proper = new PropertiesUtil("src/main/resources/mysql-config.properties");
+    /**
+     * 所有表名，SQL形式
+     */
+    private List<String> allTableSql = new ArrayList<>();
+    /**
+     * 所有表名，Java形式
+     */
+    private List<String> allTableJava = new ArrayList<>();
 
     /**
      * 程序入口
-     *
-     * @throws IOException
-     * @throws ClassNotFoundException
-     * @throws SQLException
-     * @throws TemplateException
      */
     public void write() throws IOException, ClassNotFoundException, SQLException, TemplateException {
         //设置文件路径
@@ -51,18 +55,19 @@ public class Controller {
             //获取所有数据表
             while (resultSet.next()) {
                 String name = resultSet.getString(resultSet.findColumn("name"));
-                Other.allTableSql.add(name);
-                Other.allTableJava.add(Table.lineToHump(name));
+                allTableSql.add(name);
+                allTableJava.add(lineToHump(name));
             }
-            Other.packages = proper.getProperty("package");
+            table.setPackages(proper.getProperty("package"));
             //获取表中所有字段
-            for (int i = 0; i < Other.allTableSql.size(); i++) {
-                if (tables.contains(Other.allTableSql.get(i))) {
-                    resultSet = stmt.executeQuery("select * from " + Other.allTableSql.get(i));
-                    ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
-                    table.getTypeAndField(resultSetMetaData);
+            for (int i = 0; i < allTableSql.size(); i++) {
+
+                if (tables.contains(allTableSql.get(i))) {
+//                    resultSet = stmt.executeQuery("select * from " + allTableSql.get(i));
+                    resultSet = con.getMetaData().getColumns(null, "%", allTableSql.get(i), "%");
+                    table.setTypeAndField(resultSet);
                     //创建内容
-                    new CreatFile().create(table);
+                    new CreateFile().create(table);
                 }
             }
             con.close();
@@ -83,5 +88,21 @@ public class Controller {
         Path.entityPath = paths[1];
         Path.mapperJavaPath = paths[2];
         Path.mapperXmlPath = paths[2];
+    }
+
+    public List<String> getAllTableSql() {
+        return allTableSql;
+    }
+
+    public void setAllTableSql(List<String> allTableSql) {
+        this.allTableSql = allTableSql;
+    }
+
+    public List<String> getAllTableJava() {
+        return allTableJava;
+    }
+
+    public void setAllTableJava(List<String> allTableJava) {
+        this.allTableJava = allTableJava;
     }
 }

@@ -1,22 +1,22 @@
-package ${other.getPackages()}.mapper;
+package ${packages}.mapper;
 
-import ${other.getPackages()}.entity.${other.getTableNameJava()?cap_first};
+import ${packages}.entity.${tableNameJava?cap_first};
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Created on ${other.getTime()}.
+ * Created on ${createTime}.
  */
 @Repository
-public interface ${other.getTableNameJava()?cap_first}Dao {
+public interface ${tableNameJava?cap_first}Dao {
 
     /**
      * 增加
      *
-     * @param ${other.getTableNameJava()}
+     * @param ${tableNameJava}
      * @return
      */
-    Integer insertSelective(${other.getTableNameJava()?cap_first} ${other.getTableNameJava()});
+    Integer insertSelective(${tableNameJava?cap_first} ${tableNameJava});
 
     /**
      * 删除
@@ -29,10 +29,10 @@ public interface ${other.getTableNameJava()?cap_first}Dao {
     /**
      * 更新
      *
-     * @param ${other.getTableNameJava()}
+     * @param ${tableNameJava}
      * @return
      */
-    Integer updateByPrimaryKeySelective(${other.getTableNameJava()?cap_first} ${other.getTableNameJava()});
+    Integer updateByPrimaryKeySelective(${tableNameJava?cap_first} ${tableNameJava});
 
     /**
      * 根据id查询
@@ -40,5 +40,5 @@ public interface ${other.getTableNameJava()?cap_first}Dao {
      * @param id
      * @return
      */
-    ${other.getTableNameJava()?cap_first} selectByPrimaryKey(Integer id);
+    ${tableNameJava?cap_first} selectByPrimaryKey(Integer id);
 }

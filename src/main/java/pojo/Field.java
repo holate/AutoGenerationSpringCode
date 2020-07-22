@@ -2,21 +2,36 @@ package pojo;
 
 /**
  * 字段
+ *
+ * @author holate
  */
 public class Field {
     /**
      * 数据类型
      */
-    public String type;
+    private String type;
     /**
      * 驼峰名称(经过转换)
      */
-    public String javaName;
+    private String javaName;
 
     /**
      * 下划线名称(sql中)
      */
-    public String sqlName;
+    private String sqlName;
+
+    /**
+     * 注释
+     */
+    private String remark;
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
     public String getSqlName() {
         return sqlName;

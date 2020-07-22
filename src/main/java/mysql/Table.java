@@ -1,11 +1,13 @@
 package mysql;
 
 import pojo.Field;
-import pojo.Other;
 
-import java.sql.ResultSetMetaData;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -13,12 +15,10 @@ import java.util.regex.Pattern;
 
 /**
  * 数据表
+ *
+ * @author holate
  */
 public class Table {
-    /**
-     * 字段列表
-     */
-    private List<Field> fieldList = new ArrayList<>();
     /**
      * 匹配下划线正则表达式
      */
@@ -35,8 +35,8 @@ public class Table {
             put(-1, "String");
             put(1, "String");
             put(3, "Decimal");
-            put(4, "Long");
-            put(5, "Long");
+            put(4, "Integer");
+            put(5, "Integer");
             put(7, "Float");
             put(8, "Double");
             put(12, "String");
@@ -45,22 +45,50 @@ public class Table {
             put(93, "Date");
         }
     };
+    /**
+     * 表名，驼峰形式
+     */
+    private String tableNameJava;
+    /**
+     * 表名，下划线形式
+     */
+    private String tableNameSql;
+    /**
+     * 创建时间
+     */
+    private String createTime;
+    /**
+     * 包名
+     */
+    private String packages;
+    /**
+     * 字段列表
+     */
+    private List<Field> fieldList = new ArrayList<>();
+
+    public Table() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+        this.createTime = format.format(new Date());
+    }
 
     /**
      * 获取字段名和文件
      *
-     * @param resultSetMetaData
+     * @param resultSet
      * @throws SQLException
      */
-    public void getTypeAndField(ResultSetMetaData resultSetMetaData) throws SQLException {
+    public void setTypeAndField(ResultSet resultSet) throws SQLException {
         Field field;
-        Other.tableNameJava = lineToHump(resultSetMetaData.getTableName(1));
-        Other.tableNameSql = resultSetMetaData.getTableName(1);
-        for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
+        resultSet.next();
+        tableNameSql = resultSet.getString("TABLE_NAME");
+        tableNameJava = lineToHump(resultSet.getString("TABLE_NAME"));
+        resultSet.previous();
+        while (resultSet.next()) {
             field = new Field();
-            field.setType(ALL_TYPE.get(resultSetMetaData.getColumnType(i)));
-            field.setJavaName(lineToHump(resultSetMetaData.getColumnName(i)));
-            field.setSqlName(resultSetMetaData.getColumnName(i));
+            field.setType(ALL_TYPE.get(resultSet.getInt("DATA_TYPE")));
+            field.setJavaName(lineToHump(resultSet.getString("COLUMN_NAME")));
+            field.setSqlName(resultSet.getString("COLUMN_NAME"));
+            field.setRemark(resultSet.getString("REMARKS"));
             fieldList.add(field);
         }
     }
@@ -80,6 +108,38 @@ public class Table {
         }
         matcher.appendTail(sb);
         return sb.toString();
+    }
+
+    public String getTableNameJava() {
+        return tableNameJava;
+    }
+
+    public void setTableNameJava(String tableNameJava) {
+        this.tableNameJava = tableNameJava;
+    }
+
+    public String getTableNameSql() {
+        return tableNameSql;
+    }
+
+    public void setTableNameSql(String tableNameSql) {
+        this.tableNameSql = tableNameSql;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getPackages() {
+        return packages;
+    }
+
+    public void setPackages(String packages) {
+        this.packages = packages;
     }
 
     public List<Field> getFieldList() {
