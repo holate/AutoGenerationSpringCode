@@ -3,6 +3,8 @@ package mysql;
 
 import file.CreateFile;
 import freemarker.template.TemplateException;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import pojo.Path;
 import util.PropertiesUtil;
 
@@ -45,7 +47,10 @@ public class Controller {
         ResultSet resultSet;
         Table table = new Table();
         String includeTable = proper.getProperty("tables");
-        List<String> tables = new ArrayList<>(Arrays.asList(includeTable.split(",")));
+        List<String> tables = null;
+        if (StringUtils.isNotBlank(includeTable)) {
+            tables = new ArrayList<>(Arrays.asList(includeTable.split(",")));
+        }
         Class.forName(proper.getProperty("driver"));
         Connection con = DriverManager.getConnection(proper.getProperty("url"), proper.getProperty("username"), proper.getProperty("password"));
         Statement stmt = con.createStatement();
@@ -60,11 +65,9 @@ public class Controller {
             }
             table.setPackages(proper.getProperty("package"));
             //获取表中所有字段
-            for (int i = 0; i < allTableSql.size(); i++) {
-
-                if (tables.contains(allTableSql.get(i))) {
-//                    resultSet = stmt.executeQuery("select * from " + allTableSql.get(i));
-                    resultSet = con.getMetaData().getColumns(null, "%", allTableSql.get(i), "%");
+            for (String s : allTableSql) {
+                if (CollectionUtils.isEmpty(tables) || tables.contains(s)) {
+                    resultSet = con.getMetaData().getColumns(null, "%", s, "%");
                     table.setTypeAndField(resultSet);
                     //创建内容
                     new CreateFile().create(table);
@@ -79,7 +82,7 @@ public class Controller {
         String[] paths = new String[3];
         paths[0] = path;
         paths[1] = path + "\\entity";
-        paths[2] = path + "\\mapper";
+        paths[2] = path + "\\dao";
         for (String p : paths) {
             if (!new File(p).exists()) {
                 new File(p).mkdir();

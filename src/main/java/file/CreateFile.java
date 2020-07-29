@@ -71,7 +71,7 @@ public class CreateFile {
     public void createXmlMapper(Configuration configuration, Table table) throws IOException, TemplateException {
         Template template = configuration.getTemplate("mapperXml.txt");
         Writer writer = new OutputStreamWriter(new FileOutputStream(Path.mapperXmlPath + "/" +
-            (table.getTableNameJava().substring(0, 1).toUpperCase() + table.getTableNameJava().substring(1)) + "Mapper.xml"),
+            (table.getTableNameJava().substring(0, 1).toUpperCase() + table.getTableNameJava().substring(1)) + "Dao.xml"),
             StandardCharsets.UTF_8);
         template.process(table, writer);
     }
@@ -87,7 +87,7 @@ public class CreateFile {
     public void createJavaMapper(Configuration configuration, Table table) throws IOException, TemplateException {
         Template template = configuration.getTemplate("mapperJava.txt");
         Writer writer = new OutputStreamWriter(new FileOutputStream(Path.mapperJavaPath + "/" +
-            (table.getTableNameJava().substring(0, 1).toUpperCase() + table.getTableNameJava().substring(1)) + "Mapper.java"),
+            (table.getTableNameJava().substring(0, 1).toUpperCase() + table.getTableNameJava().substring(1)) + "Dao.java"),
             StandardCharsets.UTF_8);
         template.process(table, writer);
     }

@@ -17,7 +17,7 @@ public class ${tableNameJava?cap_first} {
 
 <#list fieldList as fields>
     /**
-     * ${fields.remark?''}
+     * ${fields.remark?if_exists}
      */
     private ${fields.type} ${fields.javaName};
 

@@ -3,12 +3,12 @@
 <mapper namespace="${packages}.dao.${tableNameJava?cap_first}Dao">
 
     <sql id="Base_Column_List">
-    <trim suffixOverrides=",">
-    <#list fieldList as fields>
-            `${fields.sqlName}`,</if>
-    </#list>
-    </trim>
-    <sql>
+        <trim suffixOverrides=",">
+        <#list fieldList as fields>
+                `${fields.sqlName}`,
+        </#list>
+        </trim>
+    </sql>
 
     <insert id="insertSelective" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT into ${tableNameSql}
@@ -16,12 +16,12 @@
         <#list fieldList as fields>
             <if test="${fields.javaName} != null">`${fields.sqlName}`,</if>
         </#list>
-        <trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
         <#list fieldList as fields>
             <if test="${fields.javaName} != null">${'#{'}${fields.javaName}${'}'},</if>
         </#list>
-        <trim>
+        </trim>
     </insert>
 
     <delete id="deleteByPrimaryKey">
@@ -38,7 +38,7 @@
         WHERE id = ${'#{'}id${'}'}
     </update>
 
-    <select id="selectByPrimaryKey" resultType="${packages}.entity.${tableNameJava}">
+    <select id="selectByPrimaryKey" resultType="${packages}.entity.${tableNameJava?cap_first}">
         select
         <include refid="Base_Column_List"/>
         from ${tableNameSql}

@@ -1,4 +1,4 @@
-package ${packages}.mapper;
+package ${packages}.dao;
 
 import ${packages}.entity.${tableNameJava?cap_first};
 import org.springframework.stereotype.Repository;
