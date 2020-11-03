@@ -78,6 +78,7 @@ public class Table {
      * @throws SQLException
      */
     public void setTypeAndField(ResultSet resultSet) throws SQLException {
+        fieldList.clear();
         Field field;
         resultSet.next();
         tableNameSql = resultSet.getString("TABLE_NAME");
